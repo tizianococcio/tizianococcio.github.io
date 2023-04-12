@@ -8,6 +8,7 @@ profile:
   align: left
   image: prof_pic.png # prof_pic.jpg
   image_circular: false # crops the image to make it circular
+  image_shadow: false
   address: false #>
     #<p>555 your office number</p>
     #<p>123 your address street</p>
@@ -18,8 +19,10 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hello! My name is Tiziano, I practice software engineering and have a passion for music and sound. I enjoy experimenting with different flavors in my coffee (ginger is my current favorite), and I always keep my toothbrush on the sink. After years of working in the field, I recently graduated with a degree in Artificial Intelligence, with a thesis focused on spiking neural networks.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Alongside the professional career, my journey led me to explore film photography, medicine, music, travelling, meditation, and literature. It can be challenging to juggle so many passions, but I find that each one brings a unique perspective and enriches my life in different ways.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I find beauty in software engineering, particularly when I see the opportunity to use machines and algorithms creatively. Knowing that everything is a journey, I do have two main ideal objectives in my life: always trying to think deeply about anything, always trying to be compassionate, combining rationality and emotion. To say this, I find the words of Dante Alighieri beautifully expressive and concise: *luce intellettual, piena d'amore* (Paradiso, Canto XXX), which is [translated](https://digitaldante.columbia.edu/dante/divine-comedy/paradiso/paradiso-30/) as *light of the intellect, light filled with love*.
+
+If any of this resonates with you, I'd love to connect! Let's grab a coffee (with or without ginger) and chat.
