@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Single Word Recognition | Tiziano  Cocciò</title>
+    <meta name="author" content="Tiziano  Cocciò">
+    <meta name="description" content="Given an audio file identify whether it contains a given English word.">
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CRoboto+Slab:100,300,400,500,700%7CMaterial+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://tizianococcio.github.io/projects/single-word-recognition/">
+    
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark">
+
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+
+    <!-- Header -->
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
+          <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Tiziano </span>Cocciò</a>
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/">about</a>
+              </li>
+              
+              <!-- Blog -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/blog/">blog</a>
+              </li>
+
+              <!-- Other pages -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/projects/">projects</a>
+              </li>
+
+              <!-- Toogle theme mode -->
+              <li class="toggle-container">
+                <button id="light-toggle" title="Change theme">
+                  <i class="fas fa-moon"></i>
+                  <i class="fas fa-sun"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Scrolling Progress Bar -->
+      <progress id="progress" value="0">
+        <div class="progress-container">
+          <span class="progress-bar"></span>
+        </div>
+      </progress>
+    </header>
+
+
+    <!-- Content -->
+    <div class="container mt-5">
+      <!-- page.html -->
+        <div class="post">
+
+          <header class="post-header">
+            <h1 class="post-title">Single Word Recognition</h1>
+            <p class="post-description">Given an audio file identify whether it contains a given English word.</p>
+          </header>
+
+          <article>
+            <div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/swr/spectrogram-left-480.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/swr/spectrogram-left-800.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/swr/spectrogram-left-1400.webp"></source>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/swr/spectrogram-left.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="Spectrogram" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+    Spectrogram of an audio file with the utterance of the word 'left'. Y-axis is in log-scale.
+</div>
+
+<p>Inspired by Valerio Velardo’s great <a href="https://www.youtube.com/@ValerioVelardoTheSoundofAI/videos" rel="external nofollow noopener" target="_blank">resources</a> on the applications of Deep Learning (DL) to audio I decided to train a convolutional neural network on Google’s <a href="https://ai.googleblog.com/2017/08/launching-speech-commands-dataset.html" rel="external nofollow noopener" target="_blank">Speech Command</a> dataset. It contains one-second .wav audio files, each containing a single spoken English word. The simplicity of this data makes it a great starting point for a simple DL model.</p>
+
+<p>The model has been trained on the following words: <code class="language-plaintext highlighter-rouge">right, eight, cat, tree, bed, happy, go, dog, no, wow, nine, left, stop, three, sheila, one, bird, zero, seven, up, marvin, two, house, down, six, yes, on, five, off, four</code>.</p>
+
+<p>The main purpose of this project is approaching the use of deep learning for audio applications. To this end, it is quite a simple model, and therefore it will only process the first second of any audio file that is submitted to it. Audio sequences shorter than one second are padded with zeros at the end.</p>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+      $(document).ready(function() {
+        $('#audio-form').on('submit', function(e) {
+          e.preventDefault();
+          var formData = new FormData($(this)[0]);
+          console.log(formData);
+          $.ajax({
+            url: 'http://34.116.213.7/predict',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+              // Handle success response
+              $("#prediction-result").text("Predicted word: " + response.keyword)
+            },
+            error: function(xhr, status, error) {
+              console.log(xhr.responseText);
+              // Handle error response
+            }
+          });
+        });
+      });
+</script>
+
+<p>To test this model, upload an audio file with an utterance of one of the keywords listed above and submit the form.</p>
+
+<pre id="prediction-result">Pick a file below or record it.</pre>
+
+<form id="audio-form" method="post" enctype="multipart/form-data">
+  <input type="file" id="audio-file-input" name="file">
+  <button type="submit">Submit</button>
+</form>
+
+<hr>
+
+<h2 id="overall-architecture">Overall architecture</h2>
+<ul>
+  <li>The model is running on Tensor Flow and was built using Keras APIs.</li>
+  <li>A Python Flask application is in charge to handle requests: it invokes the model, preprocesses the audio file and sends back the model’s output.</li>
+  <li>Requests are made via HTTP POST calls to an nginx server that passes requests to the Flask application via uWSGI.</li>
+  <li>nginx and Flask run on two separate Docker containers, both living in a Docker network.</li>
+  <li>this sample application is deployed on Google Cloud Platform (GCP).</li>
+</ul>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/swr/00%20overall-architecture-480.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/swr/00%20overall-architecture-800.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/swr/00%20overall-architecture-1400.webp"></source>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/swr/00%20overall-architecture.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="architecture" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+    Overall system architecture.
+</div>
+
+<h2 id="audio-preprocessing">Audio preprocessing</h2>
+
+<h3 id="dataset">Dataset</h3>
+<p>The dataset has 65000 one-second long utterances of 30 short words. The recordings originate from uncontrolled settings. This was intentional and by design, in order to collect samples that resemble real-world data. The recordings were then converted to a 16-bit little-endian PCM-encoded WAVE file at a 16000 Hz sample rate. The audio was then trimmed to a one-second length to align most utterances, using the <a href="https://github.com/petewarden/extract_loudest_section" rel="external nofollow noopener" target="_blank">extract_loudest_section</a> tool. The audio files were then arranged into directories with each directory name labelling the word that is spoken.</p>
+
+<h3 id="data-split">Data split</h3>
+<p>I reserve 10% of the data for testing, meaning that this data will not be used to evaluate the model during training. The remaining 90% is split further, by using 10% for validation during training, while the rest is used to train the model.</p>
+
+<h3 id="features">Features</h3>
+<p>From each audio file I compute the Mel-Frequency Cepstral Coefficients (MFCCs). To compute MFCCs, one can first compute the Mel-Spectrogram.</p>
+
+<p>A Mel-spectrogram is a time-frequency representation of an audio signal, where the frequency axis is transformed to the <a href="https://en.wikipedia.org/wiki/Mel_scale" rel="external nofollow noopener" target="_blank">Mel scale</a>. The Mel scale approximates human auditory perception and emphasizes the range of frequencies that are more important for speech recognition. To compute a Mel-spectrogram, you first obtain a short-time Fourier transform (<a href="https://en.wikipedia.org/wiki/Short-time_Fourier_transform" rel="external nofollow noopener" target="_blank">STFT</a>) spectrogram and then apply the Mel filterbank (a set of triangular filters) to the power spectrum. The result is a 2D representation that shows how the power in different Mel-frequency bands evolves over time.</p>
+
+<p>Once we have the Mel-spectrogram, the log of the Mel-scaled power spectrum is computed, and a discrete cosine transform (DCT) is applied to the log-scaled Mel-spectrogram. The MFCCs are the coefficients resulting from the DCT. Typically, only the first few coefficients (e.g., the first 12-20) are used, as they contain most of the information relevant to speech recognition and audio classification tasks.</p>
+
+<p><a href="https://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html" rel="external nofollow noopener" target="_blank">This</a> post provides a comprehensive overview of MFCCs and filterbanks in the domain of speech processing.</p>
+
+<p>For this model I use 13 coefficients. Since the MFCCs are also a 2D representation of the signal, they can be seen as images or snapshots of the audio file. In fact, they are indeed treated as images by the CNN.</p>
+
+<h4 id="noise">Noise</h4>
+<p>The dataset also provides some noise that can optionally be added to the audio recordings in order to enrich the dataset. In this context I decided not to add any background noise.</p>
+
+<h2 id="convolutional-neural-network">Convolutional Neural Network</h2>
+<p>The network is made of three convolutional layers, and two dense layers. To deal with overfitting, at each convolutional layer an \(L2\) regularizer is applied, this adds a penalty term to the loss function, which encourages smaller weights. After a Rectifier Linear Unit (ReLU) activation, the output is normalized and downsampled with max-pooling. Normalization results in the output of the previous layer to have zero mean and unit variance. This helps to stabilize the training process by reducing internal covariate shift. Max-pooling results in a downsampled representation of the input. The two-dimensional input is then flattened and fed into a fully-connected layer. To help with overfitting, some units are randomly dropped out during training with \(p=0.3\). The output is computed with a dense layer where the number of units (neurons) equals the number of words in the training set. Finally, in order to achieve multi-class classification, a softmax activation is applied, allowing to interpret the output as a probability distribution. The network was trained using a learning rate of \(0.0001\) for \(40\) epochs and with a batch size of \(32\).</p>
+
+<h3 id="optimizer">Optimizer</h3>
+<p>I used the Adam optimization algorithm implemented in Keras, a stochastic gradient descent method, based on adaptive estimation of first-order and second-order moments. It is a popular optimization algorithm due to its ability to adapt the learning rate dynamically and its ability to handle sparse gradients.</p>
+
+<p>The algorithm maintains two moving average estimations: the first is the exponential moving average of the gradients, and the second is the exponential moving average of the square of the gradients. The algorithm then calculates the update for each parameter by combining these two moving averages, along with a hyperparameter for the learning rate.</p>
+
+<h3 id="loss-function">Loss function</h3>
+
+<p>To train this network I used the sparse categorical crossentropy loss function, a commonly used loss function in machine learning for multi-class classification tasks. It is used when the classes are mutually exclusive, meaning that each sample can belong to only one class.</p>
+
+<p>Mathematically, given a true label \(y_i\) and a predicted probability distribution \(p_i\) over \(C\) classes, the sparse categorical crossentropy loss function is defined as:</p>
+
+\[\mathcal{L} = -\sum_{i=1}^{C} y_i \log(p_i)\]
+
+<p>where \(y_i\) is a one-hot encoded vector representing the true label (i.e., all elements are 0 except for the element corresponding to the true class, which is 1), and \(p_i\) is the predicted probability for class \(i\).</p>
+
+<p>The loss function penalizes the model for assigning low probability to the true class, and rewards it for assigning high probabilities to the true class. The overall loss is the sum of the losses over all samples in the training set.</p>
+
+<p><a href="https://gombru.github.io/2018/05/23/cross_entropy_loss/" rel="external nofollow noopener" target="_blank">Here</a>’s a nice detailed explanation of this loss function.</p>
+
+<h3 id="model-evaluation">Model evaluation</h3>
+<p>Across multiple runs the model has a loss (error) of about 0.4 and an accuracy of 0.9.</p>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/swr/evaluation-480.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/swr/evaluation-800.webp"></source>
+    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/swr/evaluation-1400.webp"></source>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/swr/evaluation.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="model evaluation" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+    Model evaluation during training.
+</div>
+
+<h3 id="parameters-and-network-size">Parameters and network size</h3>
+<p>This network has about 36000 parameters. I find this interesting to think about, in particular when compared to the size of large language models (LLM) which are in the magnitudes of million (BERT, 2018), billions (GPT-3, 2020), or even trillion (PanGu-Σ, 2023) of parameters.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>This project has served me to acquire some confidence in processing audio data with (deep) neural networks, as well as learning about the supporting infrastructure that supports the deployment of machine learning models. I’m grateful to <a href="https://valeriovelardo.com/" rel="external nofollow noopener" target="_blank">Valerio Velardo</a> for providing inspiration and learning resources. The source code can be found <a href="https://github.com/tizianococcio/single-word-recognition" rel="external nofollow noopener" target="_blank">here</a>.</p>
+
+<!--
+
+```html
+<div class="row justify-content-sm-center">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+```
+
+-->
+
+          </article>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->    
+    <footer class="fixed-bottom">
+      <div class="container mt-0">
+        Except credited material, the content of this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" rel="external nofollow noopener" target="_blank">CC4.0 license</a>. - 2023 Tiziano  Cocciò. 
+      </div>
+    </footer>
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
+    
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
+  <script defer src="/assets/js/common.js"></script>
+  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
+
+    
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+  </body>
+</html>
