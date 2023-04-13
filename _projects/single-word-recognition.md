@@ -31,7 +31,7 @@ The main purpose of this project is approaching the use of deep learning for aud
           var formData = new FormData($(this)[0]);
           console.log(formData);
           $.ajax({
-            url: 'http://34.116.213.7/predict',
+            url: 'https://coccio.mooo.com/predict',
             type: 'POST',
             data: formData,
             contentType: false,
