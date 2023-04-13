@@ -149,7 +149,6 @@
         $('#audio-form').on('submit', function(e) {
           e.preventDefault();
           var formData = new FormData($(this)[0]);
-          console.log(formData);
           $.ajax({
             url: 'https://coccio.mooo.com/predict',
             type: 'POST',
@@ -171,12 +170,144 @@
 
 <p>To test this model, upload an audio file with an utterance of one of the keywords listed above and submit the form.</p>
 
-<pre id="prediction-result">Pick a file below or record it.</pre>
+<pre id="prediction-result">Pick a file below or record it. Inferred word will appear here.</pre>
 
 <form id="audio-form" method="post" enctype="multipart/form-data">
   <input type="file" id="audio-file-input" name="file">
   <button type="submit">Submit</button>
 </form>
+
+<!-- Audio Recorder -->
+
+<hr>
+
+<h3 id="make-a-recording-here">Make a recording here</h3>
+<h4 id="only-the-first-second-will-be-processed-speak-as-soon-as-you-press-the-record-button">Only the first second will be processed, speak as soon as you press the record button.</h4>
+
+<p><button class="record">Record</button>
+<button class="stop">Stop</button></p>
+<article id="clip-container"><div></div></article>
+
+<script>
+
+  function post_request(data) {
+    $.ajax({
+      url: 'https://coccio.mooo.com/predict',
+      type: 'POST',
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function(response) {
+        // Handle success response
+        $("#prediction-result").text("Predicted word: " + response.keyword)
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+        // Handle error response
+      }
+    });
+  }
+  const record = document.querySelector(".record");
+  const stop = document.querySelector(".stop");
+  const soundClips = document.querySelector(".sound-clips");
+  var mediaRecorder;
+
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    console.log("getUserMedia supported.");
+    navigator.mediaDevices
+      .getUserMedia(
+        {
+          audio: true,
+        }
+      )
+
+      // Success callback
+      .then((stream) => {
+        mediaRecorder = new MediaRecorder(stream);
+
+        record.onclick = () => {
+          mediaRecorder.start();
+          console.log(mediaRecorder.state);
+          console.log("recorder started");
+          record.style.background = "red";
+          record.style.color = "black";
+        };
+
+        let chunks = [];
+
+        mediaRecorder.ondataavailable = (e) => {
+          chunks.push(e.data);
+        };
+
+        stop.onclick = () => {
+          mediaRecorder.stop();
+          console.log(mediaRecorder.state);
+          console.log("recorder stopped");
+          record.style.background = "";
+          record.style.color = "";
+        };
+
+        mediaRecorder.onstop = (e) => {
+          console.log("recorder stopped");
+
+          const clipName = Date.now();
+
+          const clipContainer = document.querySelector("#clip-container");
+          const recordingsContainer = document.querySelector("#clip-container div");
+          const clipBlock = document.createElement("p");
+          const audio = document.createElement("audio");
+          audio.setAttribute("id", clipName);
+          var deleteButton = document.querySelector("#clip-container button");
+
+          const submitButton = document.createElement("button");
+          submitButton.innerHTML = "Submit";
+
+          clipContainer.classList.add("clip");
+          audio.setAttribute("controls", "");
+
+          clipBlock.appendChild(audio);
+          clipBlock.appendChild(submitButton);
+          recordingsContainer.appendChild(clipBlock);
+
+          if (deleteButton == null) {
+            deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete all";
+            clipContainer.appendChild(deleteButton);
+          }          
+
+          const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+          var blobs = {};
+          chunks = [];
+          const audioURL = window.URL.createObjectURL(blob);
+          blobs[clipName] = blob;
+          audio.src = audioURL;
+
+          deleteButton.onclick = (e) => {
+            let evtTgt = e.target;
+            evtTgt.parentNode.innerHTML = "<div></div>";
+          };
+          submitButton.onclick = (e) => {
+            let evtTgt = e.target;
+            let id = evtTgt.previousElementSibling.getAttribute("id");
+            let blob = blobs[id];
+            let formData = new FormData();
+            formData.append("file", blob);
+            post_request(formData);
+          };
+        };
+
+      })
+
+      // Error callback
+      .catch((err) => {
+        console.error(`The following getUserMedia error occurred: ${err}`);
+      });
+  } else {
+    console.log("getUserMedia not supported on your browser!");
+  }
+
+  
+</script>
 
 <hr>
 

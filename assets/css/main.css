@@ -1125,5 +1125,12 @@ d-appendix a:hover, d-appendix a.footnote-backlink:hover {
     grid-column: none;
   }
 }
+#clip-container div p button {
+  padding: 0;
+  margin: 0;
+  top: -10px;
+  position: relative;
+  left: 10px;
+}
 
 /*# sourceMappingURL=main.css.map */
