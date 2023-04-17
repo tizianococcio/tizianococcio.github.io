@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  The perceptron algorithm
-date:   2023-04-15 00:00:00 +0000
+date:   2023-04-17 00:00:00 +0000
 description: The perceptron algorithm, an overview
 tags: machine-learning artificial-intelligence neural-networks perceptron
 categories: machine-learning
