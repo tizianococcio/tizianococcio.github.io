@@ -5,6 +5,7 @@ date:   2023-04-17 00:00:00 +0000
 description: The perceptron algorithm, an overview
 tags: machine-learning artificial-intelligence neural-networks perceptron
 categories: machine-learning
+published: true
 ---
 
 # Introduction
